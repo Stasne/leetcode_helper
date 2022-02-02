@@ -1,9 +1,14 @@
+/* // DUMMY_DESCRIPTION */
+
 #include "includes.h"
 
-// CODE_SNIPPET
+using namespace std;
+
+// DUMMY_SNIPPET
+
 int main(void)
 {
-    // EXAMPLES_AREA
+    // DUMMY_TESTS
     std::cout << "Hello, world!";
     return 0;
 }
