@@ -1,5 +1,6 @@
 import shutil
 import sys
+from time import sleep
 import requests
 import subprocess
 from bs4 import BeautifulSoup as bs
@@ -60,6 +61,9 @@ class LCHelper(QtWidgets.QMainWindow, design.Ui_mainWindow):
         self.problemTitle = r['data']['question']['title']
         self.codeSnippets = r['data']['question']['codeSnippets']
         self.problemDescription = soup.get_text()
+        self.examples = list()
+        for data in soup.find_all("pre"):  # examples tag
+            self.examples.append(data.get_text())
         return False
 
     def onProblemFound(self):
@@ -79,6 +83,7 @@ class LCHelper(QtWidgets.QMainWindow, design.Ui_mainWindow):
         snippet = self.codeSnippets[self.lang_codes[self.language]]['code']
         generator = gen_cpp.CppGenerator(
             self.problemWorkingDir, self.problemDescription, snippet)
+        generator.parseExamples(self.examples)
         success = generator.generate()
         if success != True:
             return self.setStatus("Something went wrong")
@@ -98,6 +103,8 @@ class LCHelper(QtWidgets.QMainWindow, design.Ui_mainWindow):
     def startVsCode(self):
         subprocess.run(['code', './' + self.problemWorkingDir],
                        stdout=subprocess.PIPE, universal_newlines=True)
+        sleep(2)
+        super().QApplication.exit(0)
 
     def copyBaseFiles(self):
         src = self.BaseRscFolder + '/' + self.language

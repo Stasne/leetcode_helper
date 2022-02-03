@@ -1,6 +1,12 @@
 /* // DUMMY_DESCRIPTION */
 
-#include "includes.h"
+#include <cassert>
+#include <iostream>
+#include <map>
+#include <memory>
+#include <set>
+#include <string>
+#include <vector>
 
 using namespace std;
 
@@ -9,6 +15,6 @@ using namespace std;
 int main(void)
 {
     // DUMMY_TESTS
-    std::cout << "Hello, world!";
+
     return 0;
 }
